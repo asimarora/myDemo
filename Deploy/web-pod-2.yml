@@ -1,0 +1,25 @@
+apiVersion: "v1"
+kind: Pod
+metadata:
+  name: dataweb1
+  labels:
+    name: dataweb
+    app: demo
+spec:
+  containers:
+    - name: redis
+      image: redis
+      ports:
+        - containerPort: 6379
+          name: redis
+          protocol: TCP
+    - name: python
+      image: dataapp
+      env:       
+        - name: "REDIS_HOST"
+          value: "localhost"
+      ports:
+        - containerPort: 35001
+          name: http
+          protocol: TCP  
+      imagePullPolicy: Never                  
